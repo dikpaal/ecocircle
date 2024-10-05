@@ -1,0 +1,501 @@
+Material,Condition_Rating,Handmade_or_Factory,Sustainability_Score
+Bamboo,6,Factory,73
+Recycled Polyester,8,Factory,71
+Polyester,9,Hand,91
+Leather,9,Factory,50
+Polyester,10,Factory,88
+Hemp,7,Hand,66
+Silk,4,Hand,96
+Bamboo,3,Hand,53
+Recycled Polyester,5,Factory,94
+Leather,2,Hand,69
+Cotton,2,Factory,46
+Hemp,5,Factory,45
+Polyester,5,Factory,79
+Polyester,3,Factory,54
+Linen,9,Factory,45
+Leather,2,Factory,92
+Wool,6,Hand,92
+Recycled Polyester,6,Hand,45
+Silk,1,Factory,63
+Silk,8,Factory,79
+Polyester,7,Hand,53
+Hemp,6,Factory,44
+Bamboo,7,Factory,79
+Linen,1,Factory,80
+Silk,2,Hand,79
+Linen,3,Hand,88
+Silk,4,Hand,73
+Polyester,9,Factory,79
+Silk,7,Hand,83
+Wool,2,Hand,91
+Wool,4,Hand,47
+Leather,4,Hand,61
+Cotton,2,Factory,90
+Silk,10,Factory,48
+Polyester,1,Factory,47
+Hemp,8,Hand,69
+Leather,4,Factory,83
+Cotton,8,Factory,54
+Recycled Polyester,6,Hand,82
+Bamboo,4,Factory,67
+Bamboo,5,Factory,58
+Recycled Cotton,4,Hand,50
+Wool,6,Hand,56
+Leather,9,Factory,64
+Cotton,10,Factory,64
+Cotton,1,Factory,70
+Linen,8,Factory,94
+Hemp,4,Hand,63
+Silk,2,Factory,84
+Hemp,4,Factory,55
+Wool,6,Factory,64
+Silk,8,Factory,51
+Silk,6,Hand,88
+Recycled Polyester,5,Factory,80
+Linen,9,Factory,59
+Linen,1,Factory,76
+Leather,10,Hand,92
+Leather,8,Factory,57
+Wool,6,Hand,90
+Recycled Cotton,5,Hand,74
+Hemp,5,Factory,94
+Bamboo,4,Factory,56
+Silk,3,Factory,74
+Leather,8,Factory,82
+Linen,2,Hand,96
+Cotton,9,Factory,88
+Linen,6,Factory,67
+Wool,7,Hand,75
+Polyester,9,Factory,72
+Recycled Polyester,7,Hand,66
+Hemp,3,Hand,41
+Bamboo,2,Factory,50
+Recycled Polyester,1,Factory,89
+Linen,3,Hand,47
+Cotton,1,Factory,63
+Recycled Cotton,2,Factory,56
+Hemp,6,Hand,65
+Bamboo,3,Factory,73
+Silk,2,Factory,79
+Leather,2,Hand,49
+Bamboo,8,Factory,96
+Wool,5,Factory,42
+Bamboo,5,Hand,53
+Linen,2,Factory,98
+Silk,3,Factory,62
+Polyester,8,Hand,41
+Linen,2,Factory,69
+Leather,6,Hand,87
+Hemp,2,Hand,95
+Linen,1,Factory,58
+Linen,1,Hand,60
+Wool,10,Hand,43
+Polyester,8,Hand,64
+Recycled Polyester,3,Factory,77
+Leather,6,Hand,47
+Linen,8,Hand,62
+Bamboo,9,Hand,64
+Wool,10,Hand,63
+Recycled Cotton,4,Hand,77
+Polyester,8,Factory,57
+Polyester,2,Hand,73
+Polyester,8,Hand,94
+Cotton,7,Factory,50
+Wool,10,Factory,48
+Polyester,10,Factory,88
+Polyester,6,Hand,82
+Linen,3,Hand,80
+Silk,6,Hand,81
+Polyester,5,Factory,46
+Bamboo,1,Hand,65
+Polyester,8,Factory,63
+Recycled Polyester,2,Hand,91
+Recycled Cotton,2,Factory,44
+Silk,10,Hand,76
+Bamboo,10,Factory,53
+Polyester,10,Hand,91
+Wool,7,Hand,46
+Cotton,4,Factory,53
+Recycled Cotton,7,Factory,84
+Leather,1,Hand,96
+Silk,9,Factory,81
+Linen,4,Factory,66
+Bamboo,7,Hand,44
+Cotton,7,Factory,42
+Polyester,1,Hand,61
+Wool,10,Factory,56
+Bamboo,10,Factory,54
+Wool,3,Hand,69
+Silk,8,Factory,87
+Linen,1,Hand,80
+Recycled Polyester,10,Hand,50
+Wool,8,Hand,70
+Linen,1,Factory,46
+Hemp,1,Factory,55
+Hemp,8,Factory,65
+Recycled Cotton,7,Hand,75
+Wool,9,Factory,83
+Linen,9,Hand,54
+Recycled Cotton,3,Factory,54
+Recycled Polyester,10,Factory,66
+Cotton,9,Hand,55
+Linen,4,Hand,78
+Hemp,1,Factory,81
+Hemp,9,Factory,68
+Bamboo,10,Factory,71
+Silk,6,Factory,82
+Cotton,2,Factory,47
+Recycled Cotton,4,Factory,51
+Silk,7,Hand,48
+Linen,2,Hand,84
+Silk,1,Hand,83
+Silk,9,Hand,65
+Recycled Cotton,9,Hand,69
+Recycled Polyester,6,Hand,44
+Silk,8,Factory,91
+Bamboo,8,Hand,84
+Linen,5,Hand,46
+Polyester,1,Factory,66
+Recycled Cotton,4,Factory,59
+Cotton,7,Hand,54
+Polyester,7,Factory,41
+Recycled Polyester,10,Factory,91
+Hemp,6,Factory,61
+Recycled Cotton,9,Factory,69
+Wool,6,Factory,50
+Recycled Polyester,10,Factory,73
+Recycled Polyester,8,Factory,50
+Polyester,7,Hand,42
+Recycled Polyester,4,Factory,97
+Wool,9,Factory,70
+Wool,3,Hand,77
+Leather,5,Hand,41
+Recycled Cotton,8,Hand,92
+Polyester,2,Hand,52
+Recycled Cotton,5,Hand,86
+Bamboo,8,Hand,75
+Polyester,10,Factory,100
+Polyester,5,Factory,57
+Recycled Cotton,4,Hand,87
+Recycled Polyester,5,Factory,100
+Polyester,5,Factory,89
+Wool,7,Hand,51
+Bamboo,7,Hand,61
+Wool,1,Hand,94
+Leather,6,Hand,69
+Recycled Polyester,8,Hand,67
+Polyester,10,Hand,60
+Bamboo,1,Factory,51
+Leather,3,Hand,83
+Cotton,3,Hand,69
+Polyester,8,Hand,87
+Recycled Polyester,6,Factory,87
+Linen,8,Hand,52
+Recycled Polyester,3,Factory,84
+Hemp,9,Factory,58
+Polyester,1,Hand,46
+Hemp,3,Factory,98
+Bamboo,1,Factory,62
+Linen,9,Hand,95
+Recycled Polyester,9,Factory,77
+Cotton,5,Factory,77
+Leather,5,Factory,86
+Leather,5,Factory,73
+Linen,9,Factory,91
+Leather,9,Factory,66
+Wool,10,Hand,62
+Recycled Polyester,2,Hand,57
+Bamboo,5,Factory,45
+Polyester,9,Factory,55
+Recycled Polyester,5,Factory,46
+Hemp,10,Hand,75
+Silk,2,Factory,60
+Cotton,3,Hand,89
+Cotton,7,Factory,43
+Hemp,8,Hand,58
+Silk,8,Factory,79
+Polyester,4,Hand,89
+Cotton,2,Hand,87
+Recycled Cotton,6,Factory,48
+Linen,5,Factory,80
+Leather,9,Hand,53
+Bamboo,2,Hand,80
+Hemp,8,Hand,73
+Recycled Cotton,8,Factory,80
+Leather,10,Factory,69
+Recycled Cotton,8,Hand,46
+Hemp,4,Hand,55
+Recycled Polyester,3,Hand,89
+Polyester,8,Hand,99
+Recycled Cotton,5,Hand,79
+Polyester,7,Hand,74
+Hemp,7,Factory,41
+Leather,2,Factory,48
+Linen,9,Factory,90
+Silk,7,Hand,44
+Recycled Cotton,2,Factory,42
+Polyester,5,Factory,93
+Polyester,4,Factory,59
+Linen,5,Factory,54
+Silk,5,Hand,54
+Silk,8,Factory,69
+Recycled Cotton,1,Factory,97
+Cotton,3,Hand,78
+Recycled Cotton,3,Hand,73
+Cotton,10,Factory,43
+Leather,1,Factory,59
+Recycled Polyester,1,Factory,55
+Silk,6,Hand,59
+Recycled Polyester,7,Factory,75
+Silk,2,Hand,80
+Recycled Polyester,6,Hand,44
+Bamboo,3,Factory,100
+Hemp,3,Hand,87
+Recycled Polyester,4,Factory,58
+Recycled Polyester,1,Hand,48
+Bamboo,8,Factory,51
+Recycled Polyester,6,Hand,63
+Silk,5,Factory,72
+Bamboo,8,Hand,93
+Recycled Polyester,2,Hand,47
+Polyester,6,Factory,78
+Cotton,6,Hand,51
+Silk,8,Hand,91
+Bamboo,3,Factory,47
+Silk,3,Hand,47
+Silk,3,Factory,59
+Cotton,3,Factory,88
+Recycled Polyester,4,Factory,43
+Linen,7,Hand,43
+Silk,2,Hand,43
+Recycled Cotton,3,Hand,43
+Bamboo,2,Hand,43
+Polyester,8,Factory,58
+Linen,7,Hand,78
+Polyester,10,Hand,84
+Linen,7,Hand,59
+Cotton,8,Factory,83
+Leather,3,Factory,78
+Recycled Cotton,9,Factory,55
+Hemp,9,Factory,63
+Hemp,10,Hand,84
+Leather,3,Factory,43
+Bamboo,5,Hand,43
+Bamboo,3,Hand,75
+Wool,3,Hand,65
+Recycled Polyester,4,Factory,56
+Bamboo,4,Factory,91
+Hemp,4,Factory,87
+Bamboo,5,Factory,48
+Silk,3,Hand,91
+Bamboo,9,Hand,62
+Silk,9,Hand,84
+Wool,6,Hand,51
+Bamboo,2,Hand,80
+Polyester,9,Factory,93
+Bamboo,2,Hand,45
+Linen,1,Hand,62
+Linen,1,Factory,86
+Silk,1,Factory,68
+Leather,8,Factory,79
+Polyester,3,Factory,48
+Recycled Polyester,5,Hand,78
+Polyester,1,Factory,67
+Cotton,10,Hand,56
+Linen,7,Hand,83
+Hemp,7,Factory,51
+Recycled Cotton,3,Hand,87
+Leather,9,Hand,100
+Hemp,4,Factory,65
+Leather,10,Hand,93
+Linen,1,Hand,62
+Recycled Polyester,6,Factory,43
+Leather,6,Hand,60
+Bamboo,10,Factory,95
+Recycled Cotton,5,Factory,58
+Recycled Polyester,1,Hand,48
+Silk,8,Factory,50
+Bamboo,5,Hand,66
+Bamboo,1,Hand,45
+Bamboo,6,Factory,64
+Recycled Cotton,5,Factory,66
+Leather,7,Hand,62
+Hemp,1,Factory,57
+Bamboo,5,Hand,61
+Leather,5,Factory,74
+Silk,9,Hand,88
+Leather,10,Factory,59
+Recycled Cotton,9,Hand,77
+Leather,3,Hand,67
+Wool,7,Factory,94
+Bamboo,6,Hand,69
+Recycled Cotton,4,Hand,55
+Silk,6,Hand,45
+Bamboo,2,Factory,66
+Cotton,8,Factory,56
+Hemp,1,Factory,50
+Bamboo,5,Hand,72
+Recycled Polyester,6,Hand,75
+Recycled Cotton,9,Factory,44
+Silk,6,Hand,63
+Linen,4,Hand,88
+Cotton,2,Factory,80
+Recycled Cotton,6,Factory,59
+Wool,7,Factory,89
+Silk,2,Factory,65
+Hemp,1,Hand,42
+Wool,4,Factory,47
+Recycled Cotton,7,Factory,61
+Cotton,3,Hand,93
+Linen,8,Factory,47
+Bamboo,6,Factory,98
+Linen,4,Hand,56
+Wool,8,Factory,87
+Silk,6,Factory,65
+Cotton,6,Factory,56
+Cotton,5,Hand,88
+Silk,1,Hand,48
+Polyester,1,Hand,70
+Wool,1,Factory,48
+Wool,8,Hand,56
+Linen,10,Hand,100
+Linen,9,Factory,92
+Leather,1,Hand,64
+Silk,4,Hand,83
+Silk,10,Hand,75
+Wool,2,Factory,55
+Polyester,5,Factory,78
+Recycled Polyester,6,Hand,58
+Polyester,7,Hand,88
+Bamboo,7,Hand,45
+Recycled Cotton,5,Factory,89
+Silk,10,Factory,55
+Recycled Cotton,3,Factory,63
+Linen,1,Factory,61
+Linen,3,Factory,91
+Silk,7,Factory,64
+Cotton,6,Hand,62
+Leather,3,Factory,93
+Linen,6,Factory,96
+Cotton,4,Factory,83
+Cotton,4,Factory,58
+Cotton,4,Hand,95
+Recycled Polyester,6,Hand,59
+Hemp,6,Hand,96
+Leather,7,Hand,55
+Cotton,7,Factory,100
+Bamboo,10,Hand,62
+Recycled Polyester,10,Factory,83
+Silk,5,Factory,58
+Wool,5,Hand,91
+Leather,9,Hand,61
+Bamboo,1,Factory,82
+Bamboo,6,Hand,45
+Linen,9,Hand,79
+Polyester,6,Factory,65
+Hemp,6,Hand,41
+Linen,1,Hand,85
+Wool,8,Hand,68
+Leather,9,Factory,99
+Recycled Cotton,7,Hand,48
+Leather,6,Hand,41
+Polyester,8,Factory,84
+Silk,10,Hand,48
+Silk,7,Hand,49
+Silk,10,Hand,59
+Wool,9,Factory,70
+Leather,10,Factory,51
+Linen,9,Hand,49
+Linen,9,Factory,58
+Linen,1,Hand,72
+Polyester,2,Hand,77
+Wool,3,Factory,82
+Recycled Cotton,6,Hand,74
+Leather,5,Hand,82
+Recycled Polyester,5,Factory,93
+Wool,8,Hand,96
+Wool,5,Hand,64
+Linen,10,Factory,92
+Linen,6,Factory,44
+Wool,7,Hand,81
+Silk,3,Factory,94
+Hemp,9,Hand,85
+Cotton,10,Factory,65
+Leather,10,Factory,61
+Bamboo,8,Hand,91
+Recycled Polyester,2,Hand,92
+Bamboo,7,Factory,99
+Cotton,1,Hand,68
+Cotton,3,Hand,56
+Wool,2,Factory,85
+Linen,1,Factory,80
+Recycled Cotton,10,Factory,55
+Leather,2,Hand,98
+Linen,1,Hand,99
+Polyester,1,Hand,67
+Cotton,3,Factory,45
+Recycled Polyester,10,Factory,42
+Cotton,9,Factory,65
+Silk,1,Factory,58
+Bamboo,4,Factory,80
+Recycled Cotton,3,Factory,54
+Leather,4,Factory,55
+Cotton,5,Factory,71
+Recycled Cotton,5,Hand,90
+Wool,10,Factory,42
+Polyester,8,Hand,97
+Recycled Cotton,8,Hand,75
+Polyester,6,Hand,86
+Recycled Polyester,9,Hand,45
+Bamboo,7,Factory,77
+Silk,6,Factory,76
+Bamboo,10,Factory,47
+Linen,9,Hand,54
+Hemp,7,Factory,80
+Polyester,7,Factory,98
+Recycled Cotton,6,Factory,48
+Recycled Polyester,6,Hand,57
+Linen,1,Hand,74
+Cotton,9,Factory,67
+Polyester,1,Factory,94
+Hemp,10,Hand,67
+Silk,5,Factory,78
+Leather,4,Hand,86
+Leather,6,Hand,70
+Silk,5,Factory,96
+Polyester,10,Factory,49
+Leather,8,Hand,88
+Silk,3,Factory,68
+Leather,6,Hand,90
+Linen,4,Factory,63
+Hemp,2,Hand,65
+Recycled Cotton,3,Factory,43
+Leather,5,Hand,78
+Leather,10,Hand,43
+Cotton,9,Factory,100
+Silk,1,Hand,86
+Cotton,1,Factory,52
+Cotton,4,Factory,52
+Linen,4,Hand,99
+Recycled Polyester,3,Factory,78
+Wool,1,Factory,93
+Cotton,2,Hand,48
+Cotton,7,Factory,87
+Bamboo,7,Factory,45
+Cotton,9,Hand,87
+Recycled Polyester,6,Hand,73
+Wool,4,Hand,85
+Leather,3,Factory,43
+Recycled Polyester,5,Hand,87
+Linen,3,Factory,83
+Bamboo,1,Factory,63
+Linen,8,Factory,100
+Recycled Cotton,8,Factory,67
+Recycled Cotton,10,Hand,64
+Wool,10,Hand,61
+Linen,8,Factory,48
+Cotton,6,Hand,84
+Polyester,6,Factory,64
+Hemp,3,Factory,90
+Polyester,8,Factory,73

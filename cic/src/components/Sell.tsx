@@ -24,7 +24,7 @@ export default function SellerForm() {
           'Content-Type': 'application/json',  // Ensure correct header for JSON
         },
         body: JSON.stringify({
-          description: itemDescription,  // Item description passed to API
+          prompt: itemDescription.toString(),  // Item description passed to API
         }),
       });
   
