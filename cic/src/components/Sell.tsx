@@ -15,7 +15,7 @@ export default function SellerForm() {
   const [sustainabilityOption, setSustainabilityOption] = useState('')
   const [suggestion, setSuggestion] = useState('')
   const [loading, setLoading] = useState(false)
-                        
+
   const invokeGPI = async (handleOption: string, itemDescription: string) => {
     try {
       const response = await fetch("https://t82xtz22cc.execute-api.us-west-2.amazonaws.com/v1", { 
@@ -24,7 +24,7 @@ export default function SellerForm() {
           'Content-Type': 'application/json',  // Ensure correct header for JSON
         },
         body: JSON.stringify({
-          description: itemDescription,  // Item description passed to API
+          prompt: itemDescription.toString(),  // Item description passed to API
         }),
       });
   
