@@ -20,7 +20,8 @@ export default function SellerForm() {
   const [conditionRating, setConditionRating] = useState('')
   const [image, setImage] = useState(null)
   const [suggestion, setSuggestion] = useState('')
-  const [sustainabilityScore, setSustainabilityScore] = useState(0)
+  // const [sustainabilityScore, setSustainabilityScore] = useState(0)
+  const sustainabilityScore = 60
   const [loading, setLoading] = useState(false)
 
   const handleInitialSubmit = async (e) => {
@@ -28,16 +29,11 @@ export default function SellerForm() {
     setLoading(true)
     // Simulating API call to GenAI model
     await new Promise(resolve => setTimeout(resolve, 1500))
-    setSuggestion(`Based on your item "${itemDescription}" made of ${material}, here's a suggestion:
+    // setSuggestion(`Based on your item "${itemDescription}" made of ${material}, here's a suggestion: ${modelSuggestion}`)
     
-    Consider upcycling your item into a unique piece of eco-friendly decor. For example, if it's a small item, you could transform it into a quirky planter or a decorative wall hanging. If it's larger, consider repurposing it into a functional piece of furniture with a fresh coat of non-toxic paint.
-    
-    This approach not only extends the life of your item but also adds a personal touch to your living space while reducing waste.`)
-    
-    // const score = calculateSustainabilityScore()
+    const score = calculateSustainabilityScore()
     // setSustainabilityScore(score)
     setLoading(false)
-    setStep(1)
   }
 
   // const calculateSustainabilityScore = () => {
@@ -48,6 +44,29 @@ export default function SellerForm() {
   //   return Math.min(score, 100) // Cap the score at 100
   // }
 
+  const calculateSustainabilityScore = () => {
+    let score = 0;
+  
+    // Materials scoring
+    const materialScore = ['bamboo', 'organic cotton', 'recycled plastic'].includes(material.toLowerCase()) ? 30 : 20;
+    score += materialScore;
+  
+    // Condition rating (scale it and add a random factor to skew towards higher values)
+    const randomConditionBoost = Math.random() * 2 + 3; // Random factor between 3 and 5
+    const conditionScore = parseInt(conditionRating) * randomConditionBoost;
+    score += conditionScore;
+  
+    // Handmade or factory scoring with a slight random variation
+    const handmadeScore = handmadeOrFactory === 'handmade' ? 20 + Math.random() * 5 : 10 + Math.random() * 5;
+    score += handmadeScore;
+  
+    // Cap and randomize final score with bias towards higher values
+    const randomnessFactor = Math.random() * 10 + 90; // Random value between 90 and 100
+    const finalScore = Math.min(score, randomnessFactor);
+  
+    return Math.min(finalScore, 100); // Cap score at 100
+  };
+  
   const handleImageUpload = (e) => {
     const file = e.target.files[0]
     if (file) {
@@ -73,7 +92,7 @@ export default function SellerForm() {
       console.error('Error:', err);
     }
   }
-  const invokeGPI = async (itemDescription: string) => {
+  const invokeGPI = async (itemDescription: string, material: string, handmadeOrFactory: string, conditionRating: string) => {
     try {
       setLoading(true)
       const response = await fetch("https://t82xtz22cc.execute-api.us-west-2.amazonaws.com/v1", { 
@@ -94,11 +113,11 @@ export default function SellerForm() {
       }
 
       const data = await response.json();
-      console.log(data);
       const parsedBody = JSON.parse(data.body);
       setLoading(false);
-      setSuggestion(`Based on your ${sustainabilityScore} preference for "${itemDescription}", here's a suggestion:
+      setSuggestion(`Based on your item "${itemDescription}" made of ${material}, here's a suggestion:
       ${parsedBody.result.split('\n')} `);
+      setStep(1)
       console.log(parsedBody.result);
     } catch (err) {
       console.error('Error:', err);
@@ -183,7 +202,7 @@ export default function SellerForm() {
               )}
             </div>
             <Button type="submit" disabled={loading} className="w-full" onClick={() => {
-              invokeGPI(itemDescription);
+              invokeGPI(itemDescription, material, handmadeOrFactory, conditionRating);
             }}>
               {loading ? <Loader className="animate-spin mr-2" /> : <Send className="mr-2" />}
               {loading ? 'Generating Suggestion...' : 'Get Suggestion'}
