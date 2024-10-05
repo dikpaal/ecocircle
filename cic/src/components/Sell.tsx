@@ -15,7 +15,7 @@ export default function SellerForm() {
   const [sustainabilityOption, setSustainabilityOption] = useState('')
   const [suggestion, setSuggestion] = useState('')
   const [loading, setLoading] = useState(false)
-                        
+
   const invokeGPI = async (handleOption: string, itemDescription: string) => {
     try {
       const response = await fetch("https://t82xtz22cc.execute-api.us-west-2.amazonaws.com/v1", { 
