@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Factory } from '../../node_modules/lucide-react/dist/lucide-react'
 
 export default function SellerForm() {
   const [itemDescription, setItemDescription] = useState('')
@@ -16,8 +17,23 @@ export default function SellerForm() {
   const [suggestion, setSuggestion] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const retrieveBuyersDataset = async () => {
+    try {
+      const response = await fetch("https://5uq5nzn4g3.execute-api.us-west-2.amazonaws.com/v1", {
+        method: 'GET',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error status ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  }
   const invokeGPI = async (handleOption: string, itemDescription: string) => {
     try {
+      setLoading(true)
       const response = await fetch("https://t82xtz22cc.execute-api.us-west-2.amazonaws.com/v1", { 
         method: 'POST',
         headers: {
@@ -27,26 +43,25 @@ export default function SellerForm() {
           prompt: itemDescription.toString(),  // Item description passed to API
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
-      console.log(data);
-      return data;
+      const parsedBody = JSON.parse(data.body);
+      setLoading(false);
+      setSuggestion(`Based on your ${sustainabilityOption} preference for "${itemDescription}", here's a suggestion:
+      ${parsedBody.result.split('\n')} `);
+      console.log(parsedBody.result);
     } catch (err) {
       console.error('Error:', err);
     }
   };
     const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    setLoading(true)
     // Simulating API call to GenAI model
     await new Promise(resolve => setTimeout(resolve, 1500))
-    setSuggestion(`Based on your ${sustainabilityOption} preference for "${itemDescription}", here's a suggestion:
-    
-    Transform your item into a unique piece of eco-friendly art. Use non-toxic paints to create a vibrant design, then mount it on a reclaimed wood frame. This upcycled creation can serve as a decorative wall piece or even a functional item like a serving tray.`)
     setLoading(false)
   }
 
