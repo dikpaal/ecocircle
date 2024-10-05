@@ -23,6 +23,16 @@ export default function SellerForm() {
   // const [sustainabilityScore, setSustainabilityScore] = useState(0)
   const sustainabilityScore = 60
   const [loading, setLoading] = useState(false)
+  const [sellerName, setSellerName] = useState('')
+  const [price, setPrice] = useState('')
+
+  const generateRandomId = () => {
+    const timestamp = Date.now().toString(36);
+    const randomStr = Math.random().toString(36).substring(2, 8);
+    return `${timestamp}-${randomStr}`;
+  };
+
+  const sellerId = generateRandomId();
 
   const handleInitialSubmit = async (e) => {
     e.preventDefault()
@@ -136,11 +146,59 @@ export default function SellerForm() {
     { id: 3, name: 'Carol Sustain', avatar: '/placeholder.svg?height=40&width=40', offer: 55 },
   ]
 
+  const publishToMarketplace = async () => {
+    try {
+      const response = await fetch("https://kxo7vlqqf3.execute-api.us-west-2.amazonaws.com/v1", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Seller_id: sellerId,
+          name: sellerName,
+          description: itemDescription,
+          image: image,
+          price: price
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log("Item published successfully:", result);
+      setStep(3);  // Move to the "Published" step
+    } catch (error) {
+      console.error("Error publishing item:", error);
+      // Handle the error appropriately (e.g., show an error message to the user)
+    }
+  };
+
   const renderStep = () => {
     switch (step) {
       case 0:
         return (
           <form onSubmit={handleInitialSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="sellerId">Seller ID</Label>
+              <Input
+                id="sellerId"
+                value={sellerId}
+                readOnly
+              />
+              <p className="text-sm text-muted-foreground">This is your unique seller ID.</p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="sellerName">Your Name</Label>
+              <Input
+                id="sellerName"
+                placeholder="Enter your name"
+                value={sellerName}
+                onChange={(e) => setSellerName(e.target.value)}
+                required
+              />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="itemDescription">Describe your item</Label>
               <Textarea
@@ -148,6 +206,17 @@ export default function SellerForm() {
                 placeholder="e.g., An old wooden chair with intricate carvings"
                 value={itemDescription}
                 onChange={(e) => setItemDescription(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="price">Price</Label>
+              <Input
+                id="price"
+                type="number"
+                placeholder="Enter the price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 required
               />
             </div>
@@ -241,7 +310,7 @@ export default function SellerForm() {
                 </CardContent>
               </Card>
             ))}
-            <Button className="w-full" variant="secondary" onClick={() => setStep(3)}>
+            <Button className="w-full" variant="secondary" onClick={publishToMarketplace}>
               <ShoppingBag className="mr-2" />
               Publish on Marketplace
             </Button>
