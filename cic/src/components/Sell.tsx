@@ -34,19 +34,19 @@ export default function SellerForm() {
     
     This approach not only extends the life of your item but also adds a personal touch to your living space while reducing waste.`)
     
-    const score = calculateSustainabilityScore()
-    setSustainabilityScore(score)
+    // const score = calculateSustainabilityScore()
+    // setSustainabilityScore(score)
     setLoading(false)
     setStep(1)
   }
 
-  const calculateSustainabilityScore = () => {
-    let score = 0
-    score += ['bamboo', 'organic cotton', 'recycled plastic'].includes(material.toLowerCase()) ? 30 : 20
-    score += parseInt(conditionRating) * 5
-    score += handmadeOrFactory === 'handmade' ? 20 : 10
-    return Math.min(score, 100) // Cap the score at 100
-  }
+  // const calculateSustainabilityScore = () => {
+  //   let score = 0
+  //   score += ['bamboo', 'organic cotton', 'recycled plastic'].includes(material.toLowerCase()) ? 30 : 20
+  //   score += parseInt(conditionRating) * 5
+  //   score += handmadeOrFactory === 'handmade' ? 20 : 10
+  //   return Math.min(score, 100) // Cap the score at 100
+  // }
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0]
@@ -73,7 +73,7 @@ export default function SellerForm() {
       console.error('Error:', err);
     }
   }
-  const invokeGPI = async (handleOption: string, itemDescription: string) => {
+  const invokeGPI = async (itemDescription: string) => {
     try {
       setLoading(true)
       const response = await fetch("https://t82xtz22cc.execute-api.us-west-2.amazonaws.com/v1", { 
@@ -82,7 +82,10 @@ export default function SellerForm() {
           'Content-Type': 'application/json',  // Ensure correct header for JSON
         },
         body: JSON.stringify({
-          prompt: itemDescription.toString(),  // Item description passed to API
+          desc: itemDescription.toString(),
+          material: material.toString(),
+          handmade: handmadeOrFactory.toString(),
+          condition: conditionRating.toString(),  
         }),
       });
 
@@ -91,9 +94,10 @@ export default function SellerForm() {
       }
 
       const data = await response.json();
+      console.log(data);
       const parsedBody = JSON.parse(data.body);
       setLoading(false);
-      setSuggestion(`Based on your ${sustainabilityOption} preference for "${itemDescription}", here's a suggestion:
+      setSuggestion(`Based on your ${sustainabilityScore} preference for "${itemDescription}", here's a suggestion:
       ${parsedBody.result.split('\n')} `);
       console.log(parsedBody.result);
     } catch (err) {
@@ -179,7 +183,7 @@ export default function SellerForm() {
               )}
             </div>
             <Button type="submit" disabled={loading} className="w-full" onClick={() => {
-              invokeGPI(sustainabilityScore, itemDescription);
+              invokeGPI(itemDescription);
             }}>
               {loading ? <Loader className="animate-spin mr-2" /> : <Send className="mr-2" />}
               {loading ? 'Generating Suggestion...' : 'Get Suggestion'}

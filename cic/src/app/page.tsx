@@ -64,7 +64,7 @@ export default function Home() {
               Ready to join the circular economy?
             </h2>
             <Link
-              href="/signup"
+              href="/sell"
               className="inline-flex items-center bg-green-600 text-white py-3 px-6 rounded-full font-semibold text-lg hover:bg-green-700 transition-colors duration-300"
             >
               Get Started
