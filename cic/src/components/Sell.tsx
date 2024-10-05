@@ -16,7 +16,30 @@ export default function SellerForm() {
   const [suggestion, setSuggestion] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const invokeGPI = async (handleOption: string, itemDescription: string) => {
+    try {
+      const response = await fetch("https://t82xtz22cc.execute-api.us-west-2.amazonaws.com/v1", { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',  // Ensure correct header for JSON
+        },
+        body: JSON.stringify({
+          description: itemDescription,  // Item description passed to API
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  };
+    const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setLoading(true)
     // Simulating API call to GenAI model
@@ -59,7 +82,7 @@ export default function SellerForm() {
                 </SelectContent>
               </Select>
             </div>
-            <Button type="submit" disabled={loading} className="w-full">
+            <Button type="submit" disabled={loading} className="w-full" onClick={() => invokeGPI(sustainabilityOption, itemDescription)}>
               {loading ? <Loader className="animate-spin mr-2" /> : <Send className="mr-2" />}
               {loading ? 'Generating Suggestion...' : 'Get Suggestion'}
             </Button>
