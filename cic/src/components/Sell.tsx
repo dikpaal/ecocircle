@@ -108,7 +108,7 @@ export default function SellerForm() {
       const parsedBody = JSON.parse(data.body);
       setLoading(false);
       setSuggestion(`Based on your item "${itemDescription}" made of ${material}, here's a suggestion:
-      ${parsedBody.result.split('\n')} `);
+      ${parsedBody.result} `);
       setStep(1)
       console.log(parsedBody.result);
     } catch (err) {
