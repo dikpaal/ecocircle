@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Loader, Send, Users, ShoppingBag, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -20,78 +20,19 @@ export default function SellerForm() {
   const [conditionRating, setConditionRating] = useState('')
   const [image, setImage] = useState(null)
   const [suggestion, setSuggestion] = useState('')
-  const [sustainabilityScore, setSustainabilityScore] = useState(0)
+  // const [sustainabilityScore, setSustainabilityScore] = useState(0)
+  const sustainabilityScore = 60
   const [loading, setLoading] = useState(false)
   const [sellerName, setSellerName] = useState('')
   const [price, setPrice] = useState('')
-  const [sellerId, setSellerId] = useState('')
 
-  useEffect(() => {
-    const generateRandomId = () => {
-      const timestamp = Date.now().toString(36);
-      const randomStr = Math.random().toString(36).substring(2, 8);
-      return `${timestamp}-${randomStr}`;
-    };
-    const sellerId = generateRandomId();
-    setSellerId(sellerId)
-  }, [])
-
-
-  // const AWS = require('aws-sdk');
-
-  // AWS.config.update({
-  //   accessKeyId: 'AKIAZQYXPP2MZH55KBAG',   // Replace with your AWS Access Key ID
-  //   secretAccessKey: 'Ze+awLv0qswO+0+dYB9gN1Uy6Al26SpXId+MQdBY',   // Replace with your AWS Secret Access Key
-  //   region: 'us-west-2'  // Replace with your AWS region
-  // });
-  // const s3 = new AWS.S3();
-
-  const handleImageUploadToS3 = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImage(reader.result)
-      }
-      reader.readAsDataURL(file)
-    }
-  
-    // Generate unique file name using timestamp
-    const uniqueFileName = `${Date.now()}-${file.name}`;
-  
-    const params = {
-      Bucket: 'your-bucket-name', // Replace with your bucket name
-      Key: uniqueFileName,
-      Body: file,
-      ContentType: file.type,
-      ACL: 'public-read' // This makes the file publicly accessible, adjust based on your needs
-    };
-  
-    try {
-      const data = await s3.upload(params).promise();
-      console.log('Image uploaded successfully:', data.Location);
-      // Set the image URL to your state to display it or save it to your backend
-      setImage(data.Location);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      // Handle error appropriately (e.g., show an error message to the user)
-    }
+  const generateRandomId = () => {
+    const timestamp = Date.now().toString(36);
+    const randomStr = Math.random().toString(36).substring(2, 8);
+    return `${timestamp}-${randomStr}`;
   };
-  
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImage(reader.result)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-  
 
-  // const sellerId = generateRandomId();
+  const sellerId = generateRandomId();
 
   const handleInitialSubmit = async (e) => {
     e.preventDefault()
@@ -103,7 +44,6 @@ export default function SellerForm() {
     const score = calculateSustainabilityScore()
     // setSustainabilityScore(score)
     setLoading(false)
-    setStep(1)
   }
 
   // const calculateSustainabilityScore = () => {
@@ -185,8 +125,9 @@ export default function SellerForm() {
       const data = await response.json();
       const parsedBody = JSON.parse(data.body);
       setLoading(false);
-      setSuggestion(`Based on your ${sustainabilityScore} preference for "${itemDescription}", here's a suggestion:
+      setSuggestion(`Based on your item "${itemDescription}" made of ${material}, here's a suggestion:
       ${parsedBody.result.split('\n')} `);
+      setStep(1)
       console.log(parsedBody.result);
     } catch (err) {
       console.error('Error:', err);
@@ -330,7 +271,7 @@ export default function SellerForm() {
               )}
             </div>
             <Button type="submit" disabled={loading} className="w-full" onClick={() => {
-              invokeGPI(itemDescription);
+              invokeGPI(itemDescription, material, handmadeOrFactory, conditionRating);
             }}>
               {loading ? <Loader className="animate-spin mr-2" /> : <Send className="mr-2" />}
               {loading ? 'Generating Suggestion...' : 'Get Suggestion'}
@@ -346,9 +287,9 @@ export default function SellerForm() {
             </div>
             <div className="p-4 bg-secondary rounded-md">
               <h3 className="text-lg font-semibold mb-2">Sustainability Score</h3>
-              {/* <Progress value={sustainabilityScore} className="w-full" /> */}
+              <Progress value={sustainabilityScore} className="w-full" />
               <p className="mt-2 text-sm text-muted-foreground">
-                {/* Your item's sustainability score: {sustainabilityScore}/100 */}
+                Your item's sustainability score: {sustainabilityScore}/100
               </p>
             </div>
             <h3 className="text-lg font-semibold">Potential Buyers</h3>
