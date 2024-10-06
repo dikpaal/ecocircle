@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Loader, Send, Users, ShoppingBag, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -25,14 +25,19 @@ export default function SellerForm() {
   const [loading, setLoading] = useState(false)
   const [sellerName, setSellerName] = useState('')
   const [price, setPrice] = useState('')
+  const [sellerId, setSellerId] = useState('')
 
-  const generateRandomId = () => {
-    const timestamp = Date.now().toString(36);
-    const randomStr = Math.random().toString(36).substring(2, 8);
-    return `${timestamp}-${randomStr}`;
-  };
+  useEffect(() => {
+    const generateRandomId = () => {
+      const timestamp = Date.now().toString(36);
+      const randomStr = Math.random().toString(36).substring(2, 8);
+      return `${timestamp}-${randomStr}`;
+    };
+    const sellerId = generateRandomId();
+    setSellerId(sellerId);
+  }, [])
 
-  const sellerId = generateRandomId();
+  
 
   const handleInitialSubmit = async (e) => {
     e.preventDefault()
