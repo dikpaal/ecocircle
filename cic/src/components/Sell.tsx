@@ -18,10 +18,9 @@ export default function SellerForm() {
   const [material, setMaterial] = useState('')
   const [handmadeOrFactory, setHandmadeOrFactory] = useState('')
   const [conditionRating, setConditionRating] = useState('')
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState<string | null>(null); 
   const [suggestion, setSuggestion] = useState('')
-  const [sustainabilityScore, setSustainabilityScore] = useState(0)
-  // const sustainabilityScore = 90
+  const [sustainabilityScore, setSustainabilityScore] = useState(90)
   const [loading, setLoading] = useState(false)
   const [sellerName, setSellerName] = useState('')
   const [price, setPrice] = useState('')
@@ -39,7 +38,7 @@ export default function SellerForm() {
 
   
 
-  const handleInitialSubmit = async (e) => {
+  const handleInitialSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     // Simulating API call to GenAI model
@@ -59,16 +58,19 @@ export default function SellerForm() {
     return Math.min(score, 100) // Cap the score at 100
   }
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0]
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // Added optional chaining to avoid errors if no file is selected
+  
     if (file) {
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result)
-      }
-      reader.readAsDataURL(file)
+        if (reader.result) {
+          setImage(reader.result as string); // Ensure type assertion for reader.result
+        }
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   const retrieveBuyersDataset = async () => {
     try {
