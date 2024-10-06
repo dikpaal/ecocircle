@@ -15,8 +15,8 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="container mx-auto px-4">
           <section className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-4">
-              Welcome to EcoCircle
+            <h1 className="text-4xl md:text-7xl font-bold text-green-800 mb-5">
+              Welcome to <span className="text-green-600">EcoCircle</span> 
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               Join our community-driven marketplace for sustainable commerce and upcycling
