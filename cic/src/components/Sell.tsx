@@ -20,8 +20,7 @@ export default function SellerForm() {
   const [conditionRating, setConditionRating] = useState('')
   const [image, setImage] = useState(null)
   const [suggestion, setSuggestion] = useState('')
-  // const [sustainabilityScore, setSustainabilityScore] = useState(0)
-  const sustainabilityScore = 60
+  const [sustainabilityScore, setSustainabilityScore] = useState(0)
   const [loading, setLoading] = useState(false)
   const [sellerName, setSellerName] = useState('')
   const [price, setPrice] = useState('')
@@ -104,6 +103,7 @@ export default function SellerForm() {
     const score = calculateSustainabilityScore()
     // setSustainabilityScore(score)
     setLoading(false)
+    setStep(1)
   }
 
   // const calculateSustainabilityScore = () => {
@@ -136,7 +136,32 @@ export default function SellerForm() {
   
     return Math.min(finalScore, 100); // Cap score at 100
   };
+  
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImage(reader.result)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
+  const retrieveBuyersDataset = async () => {
+    try {
+      const response = await fetch("https://5uq5nzn4g3.execute-api.us-west-2.amazonaws.com/v1", {
+        method: 'GET',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error status ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  }
   const invokeGPI = async (itemDescription: string, material: string, handmadeOrFactory: string, conditionRating: string) => {
     try {
       setLoading(true)
@@ -160,15 +185,14 @@ export default function SellerForm() {
       const data = await response.json();
       const parsedBody = JSON.parse(data.body);
       setLoading(false);
-      setSuggestion(`Based on your item "${itemDescription}" made of ${material}, here's a suggestion:
+      setSuggestion(`Based on your ${sustainabilityScore} preference for "${itemDescription}", here's a suggestion:
       ${parsedBody.result.split('\n')} `);
-      setStep(1)
       console.log(parsedBody.result);
     } catch (err) {
       console.error('Error:', err);
     }
   };
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+    const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     // Simulating API call to GenAI model
     await new Promise(resolve => setTimeout(resolve, 1500))
@@ -306,7 +330,7 @@ export default function SellerForm() {
               )}
             </div>
             <Button type="submit" disabled={loading} className="w-full" onClick={() => {
-              invokeGPI(itemDescription, material, handmadeOrFactory, conditionRating);
+              invokeGPI(itemDescription);
             }}>
               {loading ? <Loader className="animate-spin mr-2" /> : <Send className="mr-2" />}
               {loading ? 'Generating Suggestion...' : 'Get Suggestion'}
@@ -322,9 +346,9 @@ export default function SellerForm() {
             </div>
             <div className="p-4 bg-secondary rounded-md">
               <h3 className="text-lg font-semibold mb-2">Sustainability Score</h3>
-              <Progress value={sustainabilityScore} className="w-full" />
+              {/* <Progress value={sustainabilityScore} className="w-full" /> */}
               <p className="mt-2 text-sm text-muted-foreground">
-                Your item's sustainability score: {sustainabilityScore}/100
+                {/* Your item's sustainability score: {sustainabilityScore}/100 */}
               </p>
             </div>
             <h3 className="text-lg font-semibold">Potential Buyers</h3>
