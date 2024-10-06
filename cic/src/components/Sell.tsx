@@ -20,7 +20,7 @@ export default function SellerForm() {
   const [conditionRating, setConditionRating] = useState('')
   const [image, setImage] = useState(null)
   const [suggestion, setSuggestion] = useState('')
-  const [sustainabilityScore, setSustainabilityScore] = useState(0)
+  // const [sustainabilityScore, setSustainabilityScore] = useState(0)
   const [loading, setLoading] = useState(false)
 
   const handleInitialSubmit = async (e) => {
@@ -37,7 +37,6 @@ export default function SellerForm() {
     // const score = calculateSustainabilityScore()
     // setSustainabilityScore(score)
     setLoading(false)
-    setStep(1)
   }
 
   // const calculateSustainabilityScore = () => {
@@ -73,7 +72,7 @@ export default function SellerForm() {
       console.error('Error:', err);
     }
   }
-  const invokeGPI = async (itemDescription: string) => {
+  const invokeGPI = async (itemDescription: string, material: string, handmadeOrFactory: string, conditionRating: string) => {
     try {
       setLoading(true)
       const response = await fetch("https://t82xtz22cc.execute-api.us-west-2.amazonaws.com/v1", { 
@@ -97,19 +96,14 @@ export default function SellerForm() {
       console.log(data);
       const parsedBody = JSON.parse(data.body);
       setLoading(false);
-      setSuggestion(`Based on your ${sustainabilityScore} preference for "${itemDescription}", here's a suggestion:
-      ${parsedBody.result.split('\n')} `);
+      setSuggestion(`Based on your preference for "${itemDescription}", here's a suggestion:
+      ${parsedBody.result} `);
+      setStep(1);
       console.log(parsedBody.result);
     } catch (err) {
       console.error('Error:', err);
     }
   };
-    const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    // Simulating API call to GenAI model
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setLoading(false)
-  }
 
   const potentialBuyers = [
     { id: 1, name: 'Alice Green', avatar: '/placeholder.svg?height=40&width=40', offer: 45 },
@@ -183,8 +177,7 @@ export default function SellerForm() {
               )}
             </div>
             <Button type="submit" disabled={loading} className="w-full" onClick={() => {
-              invokeGPI(itemDescription);
-            }}>
+            invokeGPI(itemDescription, material, handmadeOrFactory, conditionRating)           }}>
               {loading ? <Loader className="animate-spin mr-2" /> : <Send className="mr-2" />}
               {loading ? 'Generating Suggestion...' : 'Get Suggestion'}
             </Button>
@@ -199,9 +192,9 @@ export default function SellerForm() {
             </div>
             <div className="p-4 bg-secondary rounded-md">
               <h3 className="text-lg font-semibold mb-2">Sustainability Score</h3>
-              <Progress value={sustainabilityScore} className="w-full" />
+              {/* <Progress value={sustainabilityScore} className="w-full" /> */}
               <p className="mt-2 text-sm text-muted-foreground">
-                Your item's sustainability score: {sustainabilityScore}/100
+                {/* Your item's sustainability score: {sustainabilityScore}/100 */}
               </p>
             </div>
             <h3 className="text-lg font-semibold">Potential Buyers</h3>

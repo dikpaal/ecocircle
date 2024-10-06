@@ -10,6 +10,19 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import coffeeImage from '../images/coffee.jpg';
+import recycled_bottles from '../images/recycled_bottles.jpg';
+import denimTote from '../images/denimTote.jpg';
+import lamps from '../images/Lamps.webp';
+import cutlery from '../images/cutlery.webp';
+import wooden_pictures from '../images/wooden_pictures.webp';
+
+const AWS = require('aws-sdk');
+
+AWS.config.update({ region: 'us-west-2' });  // Change the region to your S3 bucket's region
+
+const s3 = new AWS.S3();
+
 
 const items = [
   { 
@@ -18,7 +31,7 @@ const items = [
     price: 150, 
     sustainability: 95,
     description: 'Handcrafted coffee table made from reclaimed wooden pallets. Each piece is unique and adds rustic charm to any living space.',
-    image: '/placeholder.svg?height=200&width=300'
+    image: coffeeImage
   },
   { 
     id: 2, 
@@ -26,7 +39,7 @@ const items = [
     price: 25, 
     sustainability: 90,
     description: 'Set of 3 colorful planters made from recycled plastic bottles. Perfect for small herbs or succulents.',
-    image: '/placeholder.svg?height=200&width=300'
+    image: recycled_bottles
   },
   { 
     id: 3, 
@@ -34,7 +47,7 @@ const items = [
     price: 45, 
     sustainability: 85,
     description: 'Stylish and durable tote bag made from repurposed denim jeans. Features internal pockets and a magnetic closure.',
-    image: '/placeholder.svg?height=200&width=300'
+    image: denimTote
   },
   { 
     id: 4, 
@@ -42,7 +55,7 @@ const items = [
     price: 20, 
     sustainability: 100,
     description: 'Portable cutlery set made from sustainable bamboo. Includes fork, knife, spoon, and chopsticks in a convenient carry case.',
-    image: '/placeholder.svg?height=200&width=300'
+    image: cutlery
   },
   { 
     id: 5, 
@@ -50,7 +63,7 @@ const items = [
     price: 35, 
     sustainability: 92,
     description: 'Set of 2 rustic picture frames crafted from reclaimed barn wood. Each frame tells a unique story.',
-    image: '/placeholder.svg?height=200&width=300'
+    image: wooden_pictures
   },
   { 
     id: 6, 
@@ -58,7 +71,7 @@ const items = [
     price: 60, 
     sustainability: 98,
     description: 'Pack of 4 solar-powered LED lights for your garden or patio. Charges during the day and illuminates your outdoor space at night.',
-    image: '/placeholder.svg?height=200&width=300'
+    image: lamps
   },
 ]
 
