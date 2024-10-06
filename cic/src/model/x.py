@@ -6,14 +6,37 @@ from dotenv import load_dotenv
 import pandas as pd
 import numpy as np
 import joblib
+import requests
+from sentence_transformers import SentenceTransformer, util
+import json
+import re
+
+api_endpoint = "https://5uq5nzn4g3.execute-api.us-west-2.amazonaws.com/v1"
+response = requests.get(api_endpoint)
+print(response.text)
+
+def extract_keywords(text):
+    # Convert to lowercase
+    text = text.lower()
+    # Remove punctuation
+    text = re.sub(r'[^\w\s]', '', text)
+    # Split into words
+    words = text.split()
+    return set(words)
+
+
+
+# Load the pre-trained model (do this once at the start)
+embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+
 
 # Load the trained model and encoder
-model = joblib.load('linear_regression_model.pkl')
-encoder = joblib.load('encoder.pkl')
+model = joblib.load('/Users/dikpaal/Desktop/main/code/projects/cic/cic/src/model/linear_regression_model.pkl')
+encoder = joblib.load('/Users/dikpaal/Desktop/main/code/projects/cic/cic/src/model/encoder.pkl')
 
 
 # Load environment variables from .env file
-load_dotenv(".env")
+load_dotenv("/Users/dikpaal/Desktop/main/code/projects/cic/cic/src/model/.env")
 
 # Create a Bedrock Runtime client with explicit credentials
 session_token = os.environ.get('AWS_SESSION_TOKEN')  # Handle session token if available
@@ -127,6 +150,82 @@ def compute_sustainability_score(material, condition, production_method):
     return sustainability_score
 
 
+def suggest_buyers_to_seller(seller_item, seller_material):
+    # Fetch buyer prompts from the API
+    buyers_data = fetch_buyer_prompts()
+
+    # Find matching buyers
+    matching_buyers = find_matching_buyers(seller_item, seller_material, buyers_data)
+
+    # Check if there are any matching buyers
+    if matching_buyers:
+        # Prepare the list of matching buyers to display
+        buyers_list = "\n".join(
+            [f"{i+1}. {buyer['name']}: {buyer['prompt']}" for i, buyer in enumerate(matching_buyers)]
+        )
+        print(f"Assistant: Here are some potential buyers interested in your item:\n{buyers_list}")
+        return matching_buyers
+    else:
+        print("Assistant: There are no immediate buyers, but you can publish your posting to the marketplace.")
+        return []
+
+
+
+def find_matching_buyers(seller_item, seller_material, buyers_data):
+    matching_buyers = []
+
+    # Extract keywords from seller's item and material
+    seller_item_keywords = extract_keywords(seller_item)
+    seller_material_keywords = extract_keywords(seller_material)
+    seller_keywords = seller_item_keywords.union(seller_material_keywords)
+
+    for buyer in buyers_data:
+        buyer_name = buyer.get('buyer_name')
+        buyer_prompt = buyer.get('prompt')
+
+        if not buyer_prompt or not buyer_name:
+            continue  # Skip if data is missing
+
+        # Normalize buyer's prompt
+        buyer_prompt_normalized = buyer_prompt.lower()
+
+        # Check if any of the seller's keywords are in the buyer's prompt
+        match_found = any(keyword in buyer_prompt_normalized for keyword in seller_keywords)
+
+        if match_found:
+            matching_buyers.append({
+                'name': buyer_name,
+                'prompt': buyer_prompt,
+                # Optionally, include the matched keywords
+                # 'matched_keywords': [kw for kw in seller_keywords if kw in buyer_prompt_normalized]
+            })
+
+    return matching_buyers
+
+
+def fetch_buyer_prompts():
+    api_endpoint = "https://5uq5nzn4g3.execute-api.us-west-2.amazonaws.com/v1"
+
+    try:
+        response = requests.get(api_endpoint)
+        response.raise_for_status()
+        data = response.json()
+
+        # Extract the 'body' field which is a JSON string
+        body = data.get('body', '')
+
+        # Parse the 'body' string as JSON to get the list of buyers
+        buyers_data = json.loads(body)
+
+        return buyers_data
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching buyer prompts: {e}")
+        return []
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON: {e}")
+        return []
+
+
 
 def chatbot():
     conversation_history = []
@@ -227,58 +326,35 @@ def chatbot():
                 print("Assistant: Nice! Glad you found a sustainable way to keep using your item.")
                 conversation_history.append("Assistant: Nice! Glad you found a sustainable way to keep using your item.")
                 break
+            # After the seller decides to sell
             elif user_input.lower() in ['yes', 'y']:
-                # Proceed to suggest buyers or list on marketplace
-                # Fetch potential buyers
-                item_details = {
-                    'material': user_responses['material'],
-                    'condition': user_responses['condition'],
-                    'production_method': user_responses['production_method']
-                }
-                potential_buyers = fetch_potential_buyers(item_details)
+                user_responses['decision'] = 'yes'
+
+                # Use the seller's item and material for matching
+                seller_item = user_responses['item']
+                seller_material = user_responses['material']
 
                 # Suggest buyers
-                if potential_buyers:
-                    buyers_list = "\n".join(
-                        [f"{i+1}. {buyer['name']}: {buyer['description']}" for i, buyer in enumerate(potential_buyers)]
-                    )
-                    print(f"Assistant: Here are some potential buyers interested in your item:\n{buyers_list}")
-                    conversation_history.append(f"Assistant: Here are some potential buyers interested in your item:\n{buyers_list}")
+                matching_buyers = suggest_buyers_to_seller(seller_item, seller_material)
 
+                if matching_buyers:
                     print("Assistant: Would you like to sell it to one of them? (Enter the number or type 'no')")
-                    conversation_history.append("Assistant: Would you like to sell it to one of them? (Enter the number or type 'no')")
-
-                    # Get user input
                     user_input = input("You: ").strip()
-                    conversation_history.append(f"You: {user_input}")
-
                     if user_input.strip().isdigit():
                         selected_index = int(user_input.strip()) - 1
-                        if 0 <= selected_index < len(potential_buyers):
-                            selected_buyer = potential_buyers[selected_index]
+                        if 0 <= selected_index < len(matching_buyers):
+                            selected_buyer = matching_buyers[selected_index]
                             print(f"Assistant: Good! We've notified {selected_buyer['name']} about your item. They'll contact you soon.")
-                            conversation_history.append(f"Assistant: Good! We've notified {selected_buyer['name']} about your item. They'll contact you soon.")
-                            break
                         else:
                             print("Assistant: Invalid selection. You can publish your posting to the marketplace.")
-                            conversation_history.append("Assistant: Invalid selection. You can publish your posting to the marketplace.")
-                            break
                     elif user_input.lower() in ['no', 'n']:
                         print("Assistant: You can publish your posting to the marketplace.")
-                        conversation_history.append("Assistant: You can publish your posting to the marketplace.")
-                        break
                     else:
                         print("Assistant: Please enter a valid option.")
-                        conversation_history.append("Assistant: Please enter a valid option.")
-                        continue
                 else:
                     print("Assistant: There are no immediate buyers, but you can publish your posting to the marketplace.")
-                    conversation_history.append("Assistant: There are no immediate buyers, but you can publish your posting to the marketplace.")
-                    break
             else:
-                print("Assistant: Please answer 'yes' or 'no'.")
-                conversation_history.append("Assistant: Please answer 'yes' or 'no'.")
-            break
+                print("Assistant: Nice! Glad you found a sustainable way to keep using your item.")
 
 
 if __name__ == "__main__":
