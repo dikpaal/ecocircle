@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Loader, Send, Users, ShoppingBag, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -25,14 +25,74 @@ export default function SellerForm() {
   const [loading, setLoading] = useState(false)
   const [sellerName, setSellerName] = useState('')
   const [price, setPrice] = useState('')
+  const [sellerId, setSellerId] = useState('')
 
-  const generateRandomId = () => {
-    const timestamp = Date.now().toString(36);
-    const randomStr = Math.random().toString(36).substring(2, 8);
-    return `${timestamp}-${randomStr}`;
+  useEffect(() => {
+    const generateRandomId = () => {
+      const timestamp = Date.now().toString(36);
+      const randomStr = Math.random().toString(36).substring(2, 8);
+      return `${timestamp}-${randomStr}`;
+    };
+    const sellerId = generateRandomId();
+    setSellerId(sellerId)
+  }, [])
+
+
+  // const AWS = require('aws-sdk');
+
+  // AWS.config.update({
+  //   accessKeyId: 'AKIAZQYXPP2MZH55KBAG',   // Replace with your AWS Access Key ID
+  //   secretAccessKey: 'Ze+awLv0qswO+0+dYB9gN1Uy6Al26SpXId+MQdBY',   // Replace with your AWS Secret Access Key
+  //   region: 'us-west-2'  // Replace with your AWS region
+  // });
+  // const s3 = new AWS.S3();
+
+  const handleImageUploadToS3 = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImage(reader.result)
+      }
+      reader.readAsDataURL(file)
+    }
+  
+    // Generate unique file name using timestamp
+    const uniqueFileName = `${Date.now()}-${file.name}`;
+  
+    const params = {
+      Bucket: 'your-bucket-name', // Replace with your bucket name
+      Key: uniqueFileName,
+      Body: file,
+      ContentType: file.type,
+      ACL: 'public-read' // This makes the file publicly accessible, adjust based on your needs
+    };
+  
+    try {
+      const data = await s3.upload(params).promise();
+      console.log('Image uploaded successfully:', data.Location);
+      // Set the image URL to your state to display it or save it to your backend
+      setImage(data.Location);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      // Handle error appropriately (e.g., show an error message to the user)
+    }
   };
+  
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImage(reader.result)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+  
 
-  const sellerId = generateRandomId();
+  // const sellerId = generateRandomId();
 
   const handleInitialSubmit = async (e) => {
     e.preventDefault()
@@ -76,32 +136,7 @@ export default function SellerForm() {
   
     return Math.min(finalScore, 100); // Cap score at 100
   };
-  
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImage(reader.result)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
 
-  const retrieveBuyersDataset = async () => {
-    try {
-      const response = await fetch("https://5uq5nzn4g3.execute-api.us-west-2.amazonaws.com/v1", {
-        method: 'GET',
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error status ${response.status}`);
-      }
-      const data = await response.json();
-      console.log(data);
-    } catch (err) {
-      console.error('Error:', err);
-    }
-  }
   const invokeGPI = async (itemDescription: string, material: string, handmadeOrFactory: string, conditionRating: string) => {
     try {
       setLoading(true)
@@ -133,7 +168,7 @@ export default function SellerForm() {
       console.error('Error:', err);
     }
   };
-    const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     // Simulating API call to GenAI model
     await new Promise(resolve => setTimeout(resolve, 1500))
