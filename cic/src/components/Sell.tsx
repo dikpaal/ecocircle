@@ -20,8 +20,8 @@ export default function SellerForm() {
   const [conditionRating, setConditionRating] = useState('')
   const [image, setImage] = useState(null)
   const [suggestion, setSuggestion] = useState('')
-  // const [sustainabilityScore, setSustainabilityScore] = useState(0)
-  const sustainabilityScore = 60
+  const [sustainabilityScore, setSustainabilityScore] = useState(0)
+  // const sustainabilityScore = 90
   const [loading, setLoading] = useState(false)
   const [sellerName, setSellerName] = useState('')
   const [price, setPrice] = useState('')
@@ -51,37 +51,14 @@ export default function SellerForm() {
     setLoading(false)
   }
 
-  // const calculateSustainabilityScore = () => {
-  //   let score = 0
-  //   score += ['bamboo', 'organic cotton', 'recycled plastic'].includes(material.toLowerCase()) ? 30 : 20
-  //   score += parseInt(conditionRating) * 5
-  //   score += handmadeOrFactory === 'handmade' ? 20 : 10
-  //   return Math.min(score, 100) // Cap the score at 100
-  // }
-
   const calculateSustainabilityScore = () => {
-    let score = 0;
-  
-    // Materials scoring
-    const materialScore = ['bamboo', 'organic cotton', 'recycled plastic'].includes(material.toLowerCase()) ? 30 : 20;
-    score += materialScore;
-  
-    // Condition rating (scale it and add a random factor to skew towards higher values)
-    const randomConditionBoost = Math.random() * 2 + 3; // Random factor between 3 and 5
-    const conditionScore = parseInt(conditionRating) * randomConditionBoost;
-    score += conditionScore;
-  
-    // Handmade or factory scoring with a slight random variation
-    const handmadeScore = handmadeOrFactory === 'handmade' ? 20 + Math.random() * 5 : 10 + Math.random() * 5;
-    score += handmadeScore;
-  
-    // Cap and randomize final score with bias towards higher values
-    const randomnessFactor = Math.random() * 10 + 90; // Random value between 90 and 100
-    const finalScore = Math.min(score, randomnessFactor);
-  
-    return Math.min(finalScore, 100); // Cap score at 100
-  };
-  
+    let score = 0
+    score += ['bamboo', 'organic cotton', 'recycled plastic'].includes(material.toLowerCase()) ? 30 : 20
+    score += parseInt(conditionRating) * 5
+    score += handmadeOrFactory === 'handmade' ? 20 : 10
+    return Math.min(score, 100) // Cap the score at 100
+  }
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0]
     if (file) {
@@ -146,8 +123,8 @@ export default function SellerForm() {
   }
 
   const potentialBuyers = [
-    { id: 1, name: 'Alice Green', avatar: '/placeholder.svg?height=40&width=40', offer: 45 },
-    { id: 2, name: 'Bob Eco', avatar: '/placeholder.svg?height=40&width=40', offer: 50 },
+    { id: 1, name: 'Emma Brown', avatar: '/placeholder.svg?height=40&width=40', offer: 45 },
+    { id: 2, name: 'Sophia Martinez', avatar: '/placeholder.svg?height=40&width=40', offer: 50 },
     { id: 3, name: 'Carol Sustain', avatar: '/placeholder.svg?height=40&width=40', offer: 55 },
   ]
 
