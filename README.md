@@ -50,7 +50,6 @@ EcoCircle's backend is designed around a **serverless, event-driven AWS pipeline
 - **Amazon DynamoDB**: Stores buyer/seller prompts and metadata for quick retrieval and updates.
 - **Amazon S3**: Stores fetched media and model files for frontend access.
 
-#### My Role
 
 I designed and implemented this architecture by:
 
