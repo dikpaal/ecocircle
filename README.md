@@ -15,7 +15,9 @@ EcoCircle is an AI-powered sustainable marketplace platform. The application hel
   - **API Gateway**: Manages REST API endpoints.
   - **DynamoDB**: Stores buyer listings.
   - **S3**: Stores models and assets.
- 
+
+---
+
 ## ⚙️ How It Works
 
 The assistant (styled after **Monkey D. Luffy**) chats with users to:
