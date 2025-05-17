@@ -31,23 +31,12 @@ The assistant (styled after **Monkey D. Luffy**) chats with users to:
 
 ## 🧠 My Contributions
 
-As the lead on the **AI and AWS architecture**, I was responsible for engineering the backend intelligence and deploying it across a scalable AWS infrastructure. My key contributions included:
+As the lead on the **AI and AWS architecture**, I was responsible for engineering the backend intelligence and deploying it across a scalable AWS infrastructure:
 
-### 1. **LLM Integration with Amazon Bedrock**
-- Integrated **LLaMA 3.1 70B Instruct** via Amazon Bedrock to power conversational interactions and sustainability suggestions.
-- Implemented dynamic prompt generation to provide tailored upcycling and reuse ideas based on user input.
 
-### 2. **Semantic Search & Buyer Matching**
-- Used `all-MiniLM-L6-v2` sentence transformer to embed seller item descriptions and match them to buyer prompts via semantic similarity.
-- Designed and implemented the keyword extraction and buyer-matching pipeline using `sentence-transformers` and fuzzy logic.
+### **Architecture**
 
-### 3. **Sustainability Scoring ML Pipeline**
-- Trained a **custom Linear Regression model** using scikit-learn to generate sustainability scores based on material, condition, and production method.
-- Preprocessed and encoded categorical features using `OneHotEncoder` with fallback logic for robustness.
-
-### 4. **AWS-Powered Architecture**
-
-- EcoCircle's backend is designed around a **serverless, event-driven AWS pipeline** for scalability and real-time inference.
+EcoCircle's backend is designed around a **serverless, event-driven AWS pipeline** for scalability and real-time inference.
 
 #### Key Components
 
