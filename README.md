@@ -45,11 +45,30 @@ As the lead on the **AI and AWS architecture**, I was responsible for engineerin
 - Trained a **custom Linear Regression model** using scikit-learn to generate sustainability scores based on material, condition, and production method.
 - Preprocessed and encoded categorical features using `OneHotEncoder` with fallback logic for robustness.
 
-### 4. **Full AWS-Powered Architecture**
-- Deployed the entire backend on AWS using:
-  - **AWS Lambda** for running logic on-demand
-  - **API Gateway** for secure endpoints
-  - **Amazon Bedrock** for GenAI inference
-  - **DynamoDB** for buyer data storage
-  - **S3** for model and asset management
-- Secured endpoints and optimized runtime latency for faster interaction response.
+### 4. **AWS-Powered Architecture**
+
+- EcoCircle's backend is designed around a **serverless, event-driven AWS pipeline** for scalability and real-time inference.
+
+#### Key Components
+
+- **Amazon API Gateway**: Handles secure REST API requests from the frontend.
+- **AWS Lambda**: Executes logic on-demand, powering:
+  - LLaMA 3.1 prompt generation (via Amazon Bedrock)
+  - Sustainability scoring using a regression model
+  - Semantic buyer-seller matching via MiniLM
+  - Read/write operations for DynamoDB
+- **Amazon Bedrock**: Hosts and serves LLaMA 3.1 Instruct for contextual GenAI suggestions.
+- **Amazon DynamoDB**: Stores buyer/seller prompts and metadata for quick retrieval and updates.
+- **Amazon S3**: Stores fetched media and model files for frontend access.
+
+#### My Role
+
+I designed and implemented this architecture by:
+
+- Architecting the Lambda invocation structure for low-latency, modular execution.
+- Integrating LLaMA 3.1 via Bedrock for GenAI-based interaction.
+- Connecting the system using RESTful endpoints managed through API Gateway.
+- Ensuring reliable stateful interactions by persisting listings in DynamoDB.
+- Facilitating asynchronous media handling via S3 for frontend consumption.
+
+- This pipeline enables **real-time, intelligent interaction** between users and the platform while remaining scalable and cost-efficient.
