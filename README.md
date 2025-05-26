@@ -1,4 +1,4 @@
-# 🌍 EcoCircle
+# 🍃 EcoCircle
 
 EcoCircle is an AI-powered sustainable marketplace platform. The application helps users sell used items or explore creative upcycling ideas with AI-generated suggestions, all while promoting eco-friendly decisions through sustainability scoring and buyer-seller matchmaking.
 
